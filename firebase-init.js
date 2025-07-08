@@ -21,61 +21,127 @@ console.log("Firebase Core Initialized with correct storageBucket.");
 // --- Gestion de l'état d'authentification ---
 auth.onAuthStateChanged(user => {
     const authLinksLoggedOut = document.getElementById('auth-links-logged-out');
+    const authLinksLoggedOut = document.getElementById('auth-links-logged-out');
     const authLinksLoggedIn = document.getElementById('auth-links-logged-in');
-    const userDisplayName = document.getElementById('user-display-name');
-    const userAvatarImg = document.getElementById('user-avatar-img'); // Si vous avez une balise img pour l'avatar
+    const userDisplayNameDesktop = document.getElementById('user-display-name');
+    const userAvatarImgDesktop = document.getElementById('user-avatar-img');
+    const dashboardLinkDesktop = document.getElementById('dashboard-link');
+    const profileLinkDesktop = document.getElementById('profile-link'); // Assuming it's always profile.html
+    const logoutButtonDesktop = document.getElementById('logout-button');
+    const becomeSellerOrBuyerBtn = document.getElementById('become-seller-or-buyer-btn'); // Button in header when logged in
+
+    // Mobile auth elements
+    const mobileAuthLinksLoggedOut = document.querySelectorAll('#mobile-auth-links-logged-out, #mobile-auth-links-logged-out-register');
+    const mobileDashboardLinkContainer = document.getElementById('mobile-auth-links-logged-in'); // li container
+    const mobileDashboardLink = document.getElementById('mobile-dashboard-link');
+    const mobileProfileLinkContainer = document.getElementById('mobile-auth-links-logged-in-profile'); // li container
+    const mobileProfileLink = document.getElementById('mobile-profile-link'); // Assuming it's always profile.html
+    const mobileLogoutButtonContainer = document.getElementById('mobile-auth-links-logged-in-logout'); // li container
+    const mobileLogoutButton = document.getElementById('mobile-logout-button');
 
     if (user) {
-        // L'utilisateur est connecté
-        console.log("Utilisateur connecté:", user.email);
+        console.log("User connected:", user.uid);
         if (authLinksLoggedOut) authLinksLoggedOut.style.display = 'none';
-        if (authLinksLoggedIn) authLinksLoggedIn.style.display = 'flex'; // ou 'block' selon le style
-        if (userDisplayName) userDisplayName.textContent = user.email; // Ou user.displayName si défini
-        if (userAvatarImg && user.photoURL) {
-            userAvatarImg.src = user.photoURL;
-        } else if (userAvatarImg) {
-            userAvatarImg.src = './assets/images/avatar/avatar1.png'; // Avatar par défaut
-        }
+        if (authLinksLoggedIn) authLinksLoggedIn.style.display = 'flex'; // Desktop
 
-        // Attacher l'événement de déconnexion ici pour s'assurer qu'il n'est attaché qu'une fois que le bouton existe
-        const logoutButton = document.getElementById('logout-button');
-        if (logoutButton && !logoutButton.hasAttribute('data-listener-attached')) {
-            logoutButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                auth.signOut().then(() => {
-                    console.log('Utilisateur déconnecté');
-                    window.location.href = 'login.html'; // Rediriger vers la page de connexion
-                }).catch(error => {
-                    console.error('Erreur de déconnexion:', error);
+        mobileAuthLinksLoggedOut.forEach(el => el.classList.add('hidden'));
+        if (mobileDashboardLinkContainer) mobileDashboardLinkContainer.classList.remove('hidden');
+        if (mobileProfileLinkContainer) mobileProfileLinkContainer.classList.remove('hidden');
+        if (mobileLogoutButtonContainer) mobileLogoutButtonContainer.classList.remove('hidden');
+
+
+        db.collection('users').doc(user.uid).get().then(doc => {
+            if (doc.exists) {
+                const userData = doc.data();
+                const displayName = userData.displayName || userData.companyName || user.email;
+                const photoURL = userData.photoURL || './assets/images/avatar/avatar-default.png';
+                const role = userData.role;
+
+                if (userDisplayNameDesktop) userDisplayNameDesktop.textContent = displayName;
+                if (userAvatarImgDesktop) userAvatarImgDesktop.src = photoURL;
+
+                if (dashboardLinkDesktop) {
+                    dashboardLinkDesktop.href = role === 'candidate' ? 'candidates-dashboard.html' : 'employers-dashboard.html';
+                }
+                if (mobileDashboardLink) {
+                    mobileDashboardLink.href = role === 'candidate' ? 'candidates-dashboard.html' : 'employers-dashboard.html';
+                }
+
+                // Handle "Become Seller/Buyer" or "Complete Profile" button text and link
+                if (becomeSellerOrBuyerBtn) {
+                    // Simple logic for now, can be expanded
+                    becomeSellerOrBuyerBtn.textContent = "My Account";
+                    becomeSellerOrBuyerBtn.href = "profile.html";
+                }
+
+            } else {
+                // Fallback if user doc not found, though this shouldn't happen in normal flow
+                if (userDisplayNameDesktop) userDisplayNameDesktop.textContent = user.email;
+                if (userAvatarImgDesktop) userAvatarImgDesktop.src = './assets/images/avatar/avatar-default.png';
+                if (dashboardLinkDesktop) dashboardLinkDesktop.href = 'index.html'; // Fallback
+                if (mobileDashboardLink) mobileDashboardLink.href = 'index.html';
+            }
+        }).catch(error => {
+            console.error("Error fetching user data for header:", error);
+            if (userDisplayNameDesktop) userDisplayNameDesktop.textContent = user.email;
+            if (userAvatarImgDesktop) userAvatarImgDesktop.src = './assets/images/avatar/avatar-default.png';
+        });
+
+
+        const setupLogoutHandler = (buttonElement) => {
+            if (buttonElement && !buttonElement.hasAttribute('data-listener-attached')) {
+                buttonElement.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    auth.signOut().then(() => {
+                        console.log('User signed out');
+                        window.location.href = 'login.html';
+                    }).catch(error => {
+                        console.error('Sign out error:', error);
+                    });
                 });
-            });
-            logoutButton.setAttribute('data-listener-attached', 'true');
-        }
+                buttonElement.setAttribute('data-listener-attached', 'true');
+            }
+        };
+        setupLogoutHandler(logoutButtonDesktop);
+        setupLogoutHandler(mobileLogoutButton);
+
 
     } else {
-        // L'utilisateur est déconnecté
-        console.log("Utilisateur déconnecté");
-        if (authLinksLoggedOut) authLinksLoggedOut.style.display = 'flex'; // ou 'block'
+        console.log("User signed out or not logged in");
+        if (authLinksLoggedOut) authLinksLoggedOut.style.display = 'flex';
         if (authLinksLoggedIn) authLinksLoggedIn.style.display = 'none';
-        if (userDisplayName) userDisplayName.textContent = '';
 
-        // Redirection si sur une page protégée et non connecté
-        // Exemple simple : si la page actuelle n'est ni login.html ni register.html
-        const currentPage = window.location.pathname.split('/').pop();
-        // Pages qui ne nécessitent PAS d'être connecté pour être vues
-        const publicPages = ['login.html', 'register.html', 'index.html', '', 'freelancer2.html', 'jobs9.html']; // '' pour la racine/index.html
-        // Toutes les autres pages sont considérées comme protégées par défaut si elles ne sont pas dans publicPages
+        mobileAuthLinksLoggedOut.forEach(el => el.classList.remove('hidden'));
+        if (mobileDashboardLinkContainer) mobileDashboardLinkContainer.classList.add('hidden');
+        if (mobileProfileLinkContainer) mobileProfileLinkContainer.classList.add('hidden');
+        if (mobileLogoutButtonContainer) mobileLogoutButtonContainer.classList.add('hidden');
 
-        if (!publicPages.includes(currentPage) && !currentPage.startsWith('jobs') && !currentPage.startsWith('project') && !currentPage.startsWith('services') && !currentPage.startsWith('candidates-detail') && !currentPage.startsWith('employers-detail') && !currentPage.startsWith('blog')) {
-            // Si la page n'est pas publique et que l'utilisateur n'est pas connecté, rediriger
-             console.log(`Accès à la page potentiellement protégée ${currentPage} sans être connecté. Redirection vers login.html.`);
-             window.location.href = 'login.html';
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const publicPages = [
+            'login.html', 'register.html', 'index.html', '',
+            'services-list.html', 'services-detail1.html',
+            'jobs-list.html', 'jobs-detail1.html', // Assuming these will be public
+            'candidates-list.html', 'candidates-detail1.html',
+            'employers-list.html', 'employers-detail1.html',
+            'about1.html', 'contact1.html', 'faqs.html', 'term-of-use.html', // Example static/info pages
+            'freelancer2.html', 'jobs9.html' // Original template pages if still accessible for direct navigation (should be removed ideally)
+        ];
+
+        // A more robust check for protected pages
+        const isProtectedPage = !publicPages.includes(currentPage) &&
+                                !currentPage.startsWith('assets/') && // Ignore assets
+                                !currentPage.startsWith('dist/') && // Ignore dist
+                                currentPage !== 'firebase-init.js'; // Ignore self
+
+        if (isProtectedPage) {
+             console.log(`Accessing protected page "${currentPage}" while logged out. Redirecting to login.html.`);
+             window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
         }
     }
 });
 
-// Optionnel : Activer la persistance Firestore pour une expérience hors ligne
-db.enablePersistence().catch((err) => {
+// Firestore Persistence
+db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
     if (err.code == 'failed-precondition') {
         // Peut-être plusieurs onglets ouverts, la persistance ne peut être activée qu'une seule fois.
         console.warn('Firestore persistence failed: Multiple tabs open?');

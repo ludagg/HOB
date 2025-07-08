@@ -107,6 +107,17 @@ document.addEventListener('DOMContentLoaded', function () {
             if (doc.exists) {
                 userData = doc.data();
                 displayRoleSpecificSections(userData.role);
+                if (userData.role === 'candidate') {
+                    populateCandidateDashboardMenu(userData.role);
+                } else if (userData.role === 'employer') {
+                    populateEmployerDashboardMenu(userData.role);
+                } else {
+                    // Clear menu or show default if role is unknown or not applicable for a dashboard menu on this page
+                    const menuContainer = document.getElementById('dashboard-menu-container');
+                    if (menuContainer) {
+                        menuContainer.innerHTML = '<div class="inner scrollbar_custom max-h-full py-6 px-3"><p class="p-4 text-sm text-secondary">No specific menu for this role on profile page.</p></div>';
+                    }
+                }
 
                 if (fullNameInput) fullNameInput.value = userData.displayName || '';
                 if (emailInput) emailInput.value = userData.email || (currentUser ? currentUser.email : '');
@@ -153,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (emailInput && currentUser) emailInput.value = currentUser.email;
                 // Il faudrait peut-être créer un document de base ici si l'utilisateur s'est inscrit mais que la création a échoué.
                 // Ou, mieux, s'assurer que la création dans auth.js est robuste.
+                populateCandidateDashboardMenu(null); // Ensure menu is cleared or shows default if no profile data
             }
         }).catch(error => {
             console.error("Erreur lors du chargement du profil utilisateur:", error);
@@ -160,7 +172,209 @@ document.addEventListener('DOMContentLoaded', function () {
                 profileMessage.textContent = "Erreur de chargement du profil: " + error.message;
                 profileMessage.style.color = 'red';
             }
+            populateCandidateDashboardMenu(null); // Ensure menu is cleared or shows default on error
         });
+    }
+
+    // Function to populate the candidate dashboard menu
+    function populateCandidateDashboardMenu(role) {
+        const menuContainer = document.getElementById('dashboard-menu-container');
+        if (!menuContainer) {
+            console.warn('Dashboard menu container not found in profile.html');
+            return;
+        }
+
+        // Only populate for candidates. For other roles, or if role is null, it will be cleared or show a message.
+        if (role !== 'candidate') {
+            menuContainer.innerHTML = '<div class="inner scrollbar_custom max-h-full py-6 px-3"><p class="p-4 text-sm text-secondary">Menu applicable for candidates only.</p></div>';
+            return;
+        }
+
+        const menuHTML = `
+            <div class="inner scrollbar_custom max-h-full py-6 px-3">
+                <div class="area">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Main</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="candidates-dashboard.html" id="nav-dashboard" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-squares-four text-2xl text-secondary"></span>
+                                <strong class="text-title">Dashboard</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.html" id="nav-profile" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background active"> <!-- Active class here -->
+                                <span class="ph-duotone ph-user-circle text-2xl text-secondary"></span>
+                                <strong class="text-title">My Profile</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="area mt-6">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Activity</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="candidates-my-services.html" id="nav-my-services" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-storefront text-2xl text-secondary"></span>
+                                <strong class="text-title">My Services</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="candidates-saved-services.html" id="nav-saved-services" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-bookmarks-simple text-2xl text-secondary"></span>
+                                <strong class="text-title">Saved Services</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="candidates-my-applied.html" id="nav-my-applications" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-file-text text-2xl text-secondary"></span>
+                                <strong class="text-title">My Applications</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="candidates-job-alerts.html" id="nav-job-alerts" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-bell text-2xl text-secondary"></span>
+                                <strong class="text-title">Job Alerts</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="area mt-6">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Communication</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="dashboard-messages.html" id="nav-messages" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-chats text-2xl text-secondary"></span>
+                                <strong class="text-title">Messages</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboard-meeting.html" id="nav-meeting" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-calendar-check text-2xl text-secondary"></span>
+                                <strong class="text-title">Meeting</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="area mt-6">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Account</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="dashboard-password.html" id="nav-change-password" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-lock-key-open text-2xl text-secondary"></span>
+                                <strong class="text-title">Change Password</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboard-delete-account.html" id="nav-delete-account" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-trash text-2xl text-secondary"></span>
+                                <strong class="text-title">Delete Account</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        menuContainer.innerHTML = menuHTML;
+    }
+
+    // Function to populate the employer dashboard menu
+    function populateEmployerDashboardMenu(role) {
+        const menuContainer = document.getElementById('dashboard-menu-container');
+        if (!menuContainer) {
+            console.warn('Dashboard menu container not found in profile.html for employer');
+            return;
+        }
+
+        if (role !== 'employer') {
+            menuContainer.innerHTML = '<div class="inner scrollbar_custom max-h-full py-6 px-3"><p class="p-4 text-sm text-secondary">Menu applicable for employers only.</p></div>';
+            return;
+        }
+
+        const menuHTML = `
+            <div class="inner scrollbar_custom max-h-full py-6 px-3">
+                <div class="area">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Main</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="employers-dashboard.html" id="nav-dashboard" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-squares-four text-2xl text-secondary"></span>
+                                <strong class="text-title">Dashboard</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.html" id="nav-profile" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background active"> <!-- Active class here -->
+                                <span class="ph-duotone ph-user-circle text-2xl text-secondary"></span>
+                                <strong class="text-title">My Profile</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="area mt-6">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Hiring</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="employers-submit-jobs.html" id="nav-post-job" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-plus-circle text-2xl text-secondary"></span>
+                                <strong class="text-title">Post a New Job</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="employers-manage-jobs.html" id="nav-manage-jobs" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-list-checks text-2xl text-secondary"></span>
+                                <strong class="text-title">Manage Jobs</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="employers-manage-applicants.html" id="nav-manage-applicants" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-users-three text-2xl text-secondary"></span>
+                                <strong class="text-title">Manage Applicants</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="employers-saved-talents.html" id="nav-saved-talents" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-heart text-2xl text-secondary"></span>
+                                <strong class="text-title">Saved Talents</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="area mt-6">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Communication</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="dashboard-messages.html" id="nav-messages" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-chats text-2xl text-secondary"></span>
+                                <strong class="text-title">Messages</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboard-meeting.html" id="nav-meeting" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-calendar-check text-2xl text-secondary"></span>
+                                <strong class="text-title">Meeting</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="area mt-6">
+                    <span class="px-6 text-xs font-semibold text-secondary uppercase">Account</span>
+                    <ul class="list_link flex flex-col gap-2 mt-2">
+                        <li>
+                            <a href="dashboard-password.html" id="nav-change-password" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-lock-key-open text-2xl text-secondary"></span>
+                                <strong class="text-title">Change Password</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="dashboard-delete-account.html" id="nav-delete-account" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <span class="ph-duotone ph-trash text-2xl text-secondary"></span>
+                                <strong class="text-title">Delete Account</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        menuContainer.innerHTML = menuHTML;
     }
 
     // Aperçu de l'avatar

@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="HoB - Login" />
-        <title>HoB - Login</title>
+        <meta name="description" content="HoB - Saved Services" />
+        <title>HoB - Saved Services</title>
         <link rel="shortcut icon" href="./assets/images/fav.png" type="image/x-icon" />
         <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css" />
         <link rel="stylesheet" href="./assets/css/leaflet.css" />
@@ -16,12 +16,11 @@
 
     <body>
         <!-- Header -->
-        <header id="header" class="header relative header-fixed"> <!-Ensure header-fixed or similar class for styling consistency -->
-            <div class="header_inner absolute flex items-center justify-between top-0 left-0 right-0 z-[1] w-full sm:h-20 h-16 min-[1600px]:px-15 lg:px-9 px-4 border-b border-line"> <!- Adjusted border to border-line for non-transparent bg -->
+        <header id="header" class="header relative header-fixed">
+            <div class="header_inner absolute flex items-center justify-between top-0 left-0 right-0 z-[1] w-full sm:h-20 h-16 min-[1600px]:px-15 lg:px-9 px-4 border-b border-line">
                 <div class="left flex items-center gap-6 h-full">
                     <h1>
                         <a href="index.html">
-                            <!-- Assuming logo-black is preferred for non-transparent backgrounds -->
                             <img src="./assets/images/logo.png" alt="HoB Logo" class="logo-black md:h-[42px] h-8 w-auto" />
                         </a>
                     </h1>
@@ -37,11 +36,11 @@
                         </ul>
                     </div>
                     <div class="list_action flex items-center gap-5">
-                        <div id="auth-links-logged-out" class="flex items-center gap-3" style="display: none;"> <!-- Initially hidden, shown by JS if logged out -->
+                        <div id="auth-links-logged-out" class="flex items-center gap-3" style="display: none;">
                             <a href="login.html" class="button-main text-button-sm">Login</a>
                             <a href="register.html" class="button-main -outline text-button-sm">Sign Up</a>
                         </div>
-                        <div id="auth-links-logged-in" class="user_block relative hidden items-center gap-3"> <!-- Initially hidden, shown by JS if logged in -->
+                        <div id="auth-links-logged-in" class="user_block relative hidden items-center gap-3">
                             <button class="user_infor flex items-center gap-2 text-title">
                                 <img id="user-avatar-img" src="./assets/images/avatar/avatar-default.png" alt="User Avatar" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full object-cover" />
                                 <strong id="user-display-name" class="user_name text-title">User</strong>
@@ -69,80 +68,30 @@
                             </ul>
                         </div>
                         <button class="humburger_btn min-[1400px]:hidden">
-                             <span class="ph-bold ph-list text-xl block"></span> <!-- Adjusted for non-transparent header -->
+                             <span class="ph-bold ph-list text-xl block"></span>
                         </button>
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- Breadcrumb -->
-        <section class="breadcrumb">
-            <div class="breadcrumb_inner relative sm:mt-20 mt-16 lg:py-20 py-14">
-                <div class="breadcrumb_bg absolute top-0 left-0 w-full h-full">
-                    <img src="./assets/images/components/breadcrumb_candidate.webp" alt="breadcrumb_candidate" class="w-full h-full object-cover" />
-                </div>
-                <div class="container relative h-full">
-                    <div class="breadcrumb_content flex flex-col items-start justify-center xl:w-[1000px] lg:w-[848px] md:w-5/6 w-full h-full">
-                        <div class="list_breadcrumb flex items-center gap-2 animate animate_top" style="--i: 1">
-                            <a href="index.html" class="caption1 text-white">Home</a>
-                            <span class="caption1 text-white opacity-40">/</span>
-                            <span class="caption1 text-white opacity-60">Login</span>
-                        </div>
-                        <h3 class="heading3 text-white mt-2 animate animate_top" style="--i: 2">Login</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Main Content -->
+        <main class="pt-20">
+            <section class="container py-10 text-center">
+                <h1 class="text-3xl font-bold mb-4">Saved Services</h1>
+                <p class="text-xl">This page is under construction. Coming Soon!</p>
+            </section>
+        </main>
 
-        <!-- Form Login -->
-        <section class="form_login lg:py-20 sm:py-14 py-10">
-            <div class="container flex items-center justify-center">
-                <div class="content sm:w-[448px] w-full">
-                    <h3 class="heading3 text-center">Log In to HoB</h3>
-                    <form class="form mt-6" id="login-form">
-                        <div class="form-group">
-                            <label for="login-email">Email address*</label>
-                            <input id="login-email" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Enter your email address" required />
-                        </div>
-                        <div class="form-group mt-6">
-                            <label for="login-password">Password*</label>
-                            <input id="login-password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Enter your password" required />
-                        </div>
-                        <div class="flex items-center justify-between mt-6">
-                            <div class="sub-input-checkbox flex items-center gap-2">
-                                <input id="login-remember" type="checkbox" name="remember" />
-                                <label for="login-remember" class="text-surface1">Remember me</label>
-                            </div>
-                            <a class="text-primary hover:underline" href="#!">Forgot password?</a>
-                        </div>
-                        <div class="block-button mt-6">
-                            <button type="submit" class="button-main bg-primary w-full text-center">Login</button>
-                        </div>
-                        <div id="login-message" class="mt-4 text-center"></div>
-                        <div class="navigate flex items-center justify-center gap-2 mt-6">
-                            <span class="text-surface1">Not registered yet?</span>
-                            <a class="text-button hover:underline" href="register.html">Sign Up</a>
-                        </div>
-                        <!-- Removed Go to dashboard button and social logins for simplicity for now -->
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scroll to top -->
-        <button class="scroll-to-top-btn"><span class="ph-bold ph-caret-up"></span></button>
-
-        <!-- Footer -->
-        <footer class="footer_default bg-surface"> <!-- Changed classes for consistency -->
+        <!-- Footer (Minimal) -->
+        <footer class="footer_default bg-surface">
             <div class="container">
-                <div class="footer_bottom flex flex-wrap items-center justify-between gap-y-3 md:pt-5 pt-4 md:pb-8 pb-6 border-t border-line"> <!-- Standardized padding and classes -->
-                    <span class="text-secondary caption1">©2024 HoB (Help of Business). All Rights Reserved.</span> <!-- Standardized text class -->
+                <div class="footer_bottom flex flex-wrap items-center justify-between gap-y-3 md:pt-5 pt-4 md:pb-8 pb-6 border-t border-line">
+                    <span class="text-secondary caption1">©2024 HoB (Help of Business). All Rights Reserved.</span>
                     <div class="nav-link flex items-center gap-2.5">
-                        <a class="text-secondary caption1 hover-underline hover:text-primary" href="term-of-use.html">Terms Of Services</a> <!-- Standardized text class -->
+                        <a class="text-secondary caption1 hover-underline hover:text-primary" href="term-of-use.html">Terms Of Services</a>
                         <span class="text-secondary caption1">|</span>
-                        <a class="text-secondary caption1 hover-underline hover:text-primary" href="term-of-use.html">Privacy Policy</a> <!-- Standardized text class -->
-                        </div>
+                        <a class="text-secondary caption1 hover-underline hover:text-primary" href="term-of-use.html">Privacy Policy</a>
                     </div>
                 </div>
             </div>
@@ -182,20 +131,12 @@
 
         <script src="./assets/js/jquery.min.js"></script>
         <script src="./assets/js/phosphor-icons.js"></script>
-        <script src="./assets/js/slick.min.js"></script>
-        <script src="./assets/js/leaflet.js"></script>
-        <script src="./assets/js/swiper-bundle.min.js"></script>
-
+        <script src="./assets/js/main.js"></script>
         <!-- Firebase SDK -->
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-        <!-- Notre fichier d'initialisation Firebase -->
         <script src="firebase-init.js"></script>
-        <!-- Notre fichier de logique d'authentification -->
-        <script src="./assets/js/auth.js"></script>
-
-        <script src="./assets/js/main.js"></script>
     </body>
 </html>
