@@ -855,16 +855,49 @@
                         </ul>
                     </div>
                     <div class="list_action flex items-center gap-7">
-                        <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
-                        <div class="list_icon flex items-center gap-3">
-                            <a href="login.html" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
-                                <span class="ph-bold ph-user"></span>
-                                <span>Login</span>
-                            </a>
-                            <a href="register.html" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
-                                <span class="ph-bold ph-plus-circle"></span>
-                                <span>Register</span>
-                            </a>
+                        <!-- Liens pour utilisateur non connecté -->
+                        <div id="auth-links-logged-out" class="flex items-center gap-7">
+                            <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
+                            <div class="list_icon flex items-center gap-3">
+                                <a href="login.html" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
+                                    <span class="ph-bold ph-user"></span>
+                                    <span>Login</span>
+                                </a>
+                                <a href="register.html" class="flex items-center gap-1 text-title text-white duration-300 hover:text-primary">
+                                    <span class="ph-bold ph-plus-circle"></span>
+                                    <span>Register</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Liens pour utilisateur connecté (initiallement caché) -->
+                        <div id="auth-links-logged-in" class="user_block relative max-sm:hidden items-center gap-3" style="display: none;">
+                             <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
+                            <button class="user_infor flex items-center gap-2 text-white">
+                                <img id="user-avatar-img" src="./assets/images/avatar/avatar1.png" alt="User Avatar" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
+                                <strong id="user-display-name" class="user_name text-title">User</strong>
+                                <span class="ph ph-caret-down"></span>
+                            </button>
+                            <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg shadow-md">
+                                <li class="action_item">
+                                    <a href="candidates-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
+                                        <span class="ph ph-squares-four text-2xl text-secondary"></span>
+                                        <strong class="text-title">Dashboard</strong>
+                                    </a>
+                                </li>
+                                <li class="action_item">
+                                    <a href="candidates-profile-setting.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
+                                        <span class="ph ph-user-circle text-2xl text-secondary"></span>
+                                        <strong class="text-title">My Profile</strong>
+                                    </a>
+                                </li>
+                                <li class="action_item">
+                                    <a href="#" id="logout-button" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
+                                        <span class="ph ph-sign-out text-2xl text-secondary"></span>
+                                        <strong class="text-title">Log Out</strong>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                         <button class="humburger_btn min-[1400px]:hidden">
                             <span class="ph-bold ph-list text-white text-2xl block">
@@ -2717,6 +2750,14 @@
         <script src="./assets/js/slick.min.js"></script>
         <script src="./assets/js/leaflet.js"></script>
         <script src="./assets/js/swiper-bundle.min.js"></script>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <!-- Notre fichier d'initialisation Firebase -->
+        <script src="firebase-init.js"></script>
+
         <script src="./assets/js/main.js"></script>
     </body>
 </html>

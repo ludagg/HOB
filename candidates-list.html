@@ -854,88 +854,59 @@
                     </ul>
                 </div>
                 <div class="list_action flex items-center gap-5">
-                    <div class="help_block max-sm:hidden">
-                        <a href="term-of-use.html" class="block">
-                            <span class="ph ph-question text-white text-2xl block"></span>
-                        </a>
-                    </div>
-                    <div class="notification_block relative max-sm:hidden">
-                        <button class="relative block">
-                            <span class="ph ph-bell text-white text-2xl block"></span>
-                            <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span>
-                        </button>
-                        <div class="notification_submenu absolute w-[400px] p-5 top-[3.25rem] -left-9 bg-white rounded-xl">
-                            <h6 class="heading6 pb-3">Notifications</h6>
-                            <ul class="list_notification w-full">
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">UI Designer</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">25 mins ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Internet Security</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">1 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Social Media Marketing</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">5 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Social Media Marketing</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">12 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                    <!-- Liens pour utilisateur non connecté -->
+                    <div id="auth-links-logged-out" class="flex items-center gap-5">
+                        <div class="help_block max-sm:hidden">
+                            <a href="term-of-use.html" class="block">
+                                <span class="ph ph-question text-white text-2xl block"></span>
+                            </a>
                         </div>
+                        <div class="notification_block relative max-sm:hidden">
+                             <button class="relative block">
+                                <span class="ph ph-bell text-white text-2xl block"></span>
+                                <!-- <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span> -->
+                            </button>
+                        </div>
+                        <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
+                        <a href="login.html" class="button-main bg-transparent text-white border border-white hover:bg-white hover:text-black max-sm:hidden mr-2">Login</a>
+                        <a href="register.html" class="button-main bg-transparent text-white border border-white hover:bg-white hover:text-black max-sm:hidden">Sign Up</a>
                     </div>
-                    <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
-                    <div class="user_block relative max-sm:hidden">
+
+                    <!-- Liens pour utilisateur connecté (initiallement caché) -->
+                    <div id="auth-links-logged-in" class="user_block relative max-sm:hidden flex items-center gap-3" style="display: none;">
+                        <div class="help_block max-sm:hidden">
+                            <a href="term-of-use.html" class="block">
+                                <span class="ph ph-question text-white text-2xl block"></span>
+                            </a>
+                        </div>
+                        <div class="notification_block relative max-sm:hidden">
+                            <button class="relative block">
+                                <span class="ph ph-bell text-white text-2xl block"></span>
+                                <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span> <!-- Afficher si notifications -->
+                            </button>
+                            <!-- Submenu de notifications ici si nécessaire -->
+                        </div>
+                        <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
                         <button class="user_infor flex items-center gap-2 text-white">
-                            <img src="./assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
-                            <strong class="user_name text-title">Employer</strong>
+                            <img id="user-avatar-img" src="./assets/images/avatar/avatar1.png" alt="User Avatar" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
+                            <strong id="user-display-name" class="user_name text-title">User</strong>
                             <span class="ph ph-caret-down"></span>
                         </button>
-                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
+                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg shadow-md">
                             <li class="action_item">
-                                <a href="employers-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="candidates-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-squares-four text-2xl text-secondary"></span>
                                     <strong class="text-title">Dashboard</strong>
                                 </a>
                             </li>
                             <li class="action_item">
-                                <a href="employers-profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-user-circle text-2xl text-secondary"></span>
                                     <strong class="text-title">My Profile</strong>
                                 </a>
                             </li>
                             <li class="action_item">
-                                <a href="login.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="#" id="logout-button" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-sign-out text-2xl text-secondary"></span>
                                     <strong class="text-title">Log Out</strong>
                                 </a>
@@ -1037,418 +1008,12 @@
                         <span class="caption1">Clear All</span>
                     </button>
                 </div>
-                <ul class="list_layout_cols list_candidates grid md:grid-cols-2 lg:gap-7.5 gap-5 w-full md:mt-10 mt-7">
-                    <li class="candidates_item is_top_rate px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-13.webp" alt="IMG-13" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Devon Lane</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Las Vegas, USA</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$22</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-12.webp" alt="IMG-12" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Guy Hawkins</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Cape Town, South Africa</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$23</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item is_top_rate px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-11.webp" alt="IMG-11" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Kristin Watson</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Rio de Janeiro, Brazil</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$32</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-10.webp" alt="IMG-10" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Robert Fox</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Sydney, Australia</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$18</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item is_top_rate px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-9.webp" alt="IMG-9" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Dianne Russell</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Tokyo, Japan</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$22</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-8.webp" alt="IMG-8" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Theresa Webb</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Paris, France</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$23</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-7.webp" alt="IMG-7" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Marvin McKinney</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Cape Town, South Africa</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$32</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-6.webp" alt="IMG-6" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Arlene McCoy</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Las Vegas, USA</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$18</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item is_top_rate px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-5.webp" alt="IMG-5" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Courtney Henry</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Rio de Janeiro, Brazil</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$22</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="candidates_item is_top_rate px-6 py-5 rounded-lg bg-white shadow-md duration-300 hover:shadow-xl">
-                        <div class="candidates_info flex gap-4 relative w-full pb-4 border-b border-line">
-                            <a href="candidates-detail1.html" class="overflow-hidden flex-shrink-0 w-15 h-15 rounded-full">
-                                <img src="./assets/images/avatar/IMG-4.webp" alt="IMG-4" class="candidates_avatar w-full h-full object-cover" />
-                            </a>
-                            <div class="candidates_content w-full">
-                                <a href="candidates-detail1.html" class="candidates_detail flex flex-col gap-1 mr-14 duration-300 hover:text-primary">
-                                    <strong class="candidates_name -style-1 w-fit text-title">Kristin Watson</strong>
-                                    <span class="flex items-center text-secondary">
-                                        <span class="ph ph-map-pin text-lg"></span>
-                                        <span class="candidates_address -style-1 caption1 pl-1">Cape Town, South Africa</span>
-                                    </span>
-                                </a>
-                                <div class="flex flex-wrap items-center justify-between gap-4 mt-1">
-                                    <div class="flex flex-wrap items-center gap-3">
-                                        <strong class="candidates_status tag caption2 bg-background text-primary">Available now</strong>
-                                        <div class="flex items-center gap-1">
-                                            <span class="ph-fill ph-star text-yellow text-sm"></span>
-                                            <strong class="candidates_rate text-sm font-semibold">4.9</strong>
-                                            <span class="candidates_rate_quantity caption1 text-secondary">(482 review)</span>
-                                        </div>
-                                    </div>
-                                    <a href="candidates-detail1.html" class="button-main -border">View Profile</a>
-                                </div>
-                            </div>
-                            <button class="add_wishlist_btn absolute top-0 right-0 -border">
-                                <span class="ph ph-heart text-xl"></span>
-                                <span class="ph-fill ph-heart text-xl"></span>
-                            </button>
-                        </div>
-                        <div class="candidates_more_info flex flex-wrap items-center justify-between gap-3 pt-4">
-                            <div class="flex flex-wrap items-center gap-2.5">
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Full-Time</a>
-                                <a href="candidates-default.html" class="candidates_tag caption1 tag bg-surface duration-300 hover:bg-primary hover:text-white">Web Design</a>
-                            </div>
-                            <div class="candidates_price">
-                                <span class="price text-title">$23</span>
-                                <span class="text-secondary">/Hours</span>
-                            </div>
-                        </div>
-                    </li>
+                <ul id="candidates-container" class="list_layout_cols list_candidates grid md:grid-cols-2 lg:gap-7.5 gap-5 w-full md:mt-10 mt-7">
+                    <!-- Les candidats seront injectés ici par JavaScript -->
                 </ul>
+                <div id="no-candidates-message" class="text-center text-secondary py-10" style="display: none;">
+                    Aucun candidat trouvé.
+                </div>
                 <ul class="list_pagination menu_tab flex items-center justify-center gap-2 w-full md:mt-10 mt-7" role="tablist">
                     <li role="presentation">
                         <a href="#" class="tab_btn -fill flex items-center justify-center w-10 h-10 rounded border border-line text-title duration-300 hover:border-black active" role="tab" aria-selected="true">1</a>
@@ -2238,6 +1803,16 @@
         <script src="./assets/js/slick.min.js"></script>
         <script src="./assets/js/leaflet.js"></script>
         <script src="./assets/js/swiper-bundle.min.js"></script>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <!-- Notre fichier d'initialisation Firebase -->
+        <script src="firebase-init.js"></script>
+        <!-- Notre fichier de logique pour la liste des candidats -->
+        <script src="./assets/js/candidates-list.js"></script>
+
         <script src="./assets/js/main.js"></script>
     </body>
 </html>

@@ -854,88 +854,58 @@
                     </ul>
                 </div>
                 <div class="list_action flex items-center gap-5">
-                    <div class="help_block max-sm:hidden">
-                        <a href="term-of-use.html" class="block">
-                            <span class="ph ph-question text-white text-2xl block"></span>
-                        </a>
-                    </div>
-                    <div class="notification_block relative max-sm:hidden">
-                        <button class="relative block">
-                            <span class="ph ph-bell text-white text-2xl block"></span>
-                            <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span>
-                        </button>
-                        <div class="notification_submenu absolute w-[400px] p-5 top-[3.25rem] -left-9 bg-white rounded-xl">
-                            <h6 class="heading6 pb-3">Notifications</h6>
-                            <ul class="list_notification w-full">
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">UI Designer</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">25 mins ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Internet Security</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">1 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Social Media Marketing</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">5 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Social Media Marketing</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">12 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                    <!-- Liens pour utilisateur non connecté -->
+                    <div id="auth-links-logged-out" class="flex items-center gap-5">
+                        <div class="help_block max-sm:hidden">
+                            <a href="term-of-use.html" class="block">
+                                <span class="ph ph-question text-white text-2xl block"></span>
+                            </a>
                         </div>
+                        <div class="notification_block relative max-sm:hidden"> <!-- Peut être masqué/géré pour non-connectés -->
+                            <button class="relative block">
+                                <span class="ph ph-bell text-white text-2xl block"></span>
+                                <!-- <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span> -->
+                            </button>
+                        </div>
+                        <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
+                         <a href="register.html" class="button-main bg-transparent text-white border border-white hover:bg-white hover:text-black max-sm:hidden">Sign Up</a>
                     </div>
-                    <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
-                    <div class="user_block relative max-sm:hidden">
+
+                    <!-- Liens pour utilisateur connecté (initiallement caché) -->
+                    <div id="auth-links-logged-in" class="user_block relative max-sm:hidden items-center gap-3" style="display: none;">
+                        <div class="help_block max-sm:hidden">
+                            <a href="term-of-use.html" class="block">
+                                <span class="ph ph-question text-white text-2xl block"></span>
+                            </a>
+                        </div>
+                        <div class="notification_block relative max-sm:hidden">
+                            <button class="relative block">
+                                <span class="ph ph-bell text-white text-2xl block"></span>
+                                <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span> <!-- Afficher si notifications -->
+                            </button>
+                            <!-- Submenu de notifications ici si nécessaire -->
+                        </div>
+                        <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
                         <button class="user_infor flex items-center gap-2 text-white">
-                            <img src="./assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
-                            <strong class="user_name text-title">Employer</strong>
+                            <img id="user-avatar-img" src="./assets/images/avatar/avatar1.png" alt="User Avatar" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
+                            <strong id="user-display-name" class="user_name text-title">User</strong>
                             <span class="ph ph-caret-down"></span>
                         </button>
-                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
+                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg shadow-md">
                             <li class="action_item">
-                                <a href="employers-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="candidates-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-squares-four text-2xl text-secondary"></span>
                                     <strong class="text-title">Dashboard</strong>
                                 </a>
                             </li>
                             <li class="action_item">
-                                <a href="employers-profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="candidates-profile-setting.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-user-circle text-2xl text-secondary"></span>
                                     <strong class="text-title">My Profile</strong>
                                 </a>
                             </li>
                             <li class="action_item">
-                                <a href="login.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="#" id="logout-button" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-sign-out text-2xl text-secondary"></span>
                                     <strong class="text-title">Log Out</strong>
                                 </a>
@@ -975,25 +945,26 @@
             <div class="container flex items-center justify-center">
                 <div class="content sm:w-[448px] w-full">
                     <h3 class="heading3 text-center">Log In</h3>
-                    <form class="form mt-6">
+                    <form class="form mt-6" id="login-form">
                         <div class="form-group">
-                            <label for="username">Email address*</label>
-                            <input id="username" type="email" name="username" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
+                            <label for="login-email">Email address*</label>
+                            <input id="login-email" type="email" name="email" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Email address*" required />
                         </div>
                         <div class="form-group mt-6">
-                            <label for="password">Password*</label>
-                            <input id="password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Password*" required />
+                            <label for="login-password">Password*</label>
+                            <input id="login-password" type="password" name="password" class="form-control w-full mt-3 border border-line px-4 h-[50px] rounded-lg" placeholder="Password*" required />
                         </div>
                         <div class="flex items-center justify-between mt-6">
                             <div class="sub-input-checkbox flex items-center gap-2">
-                                <input id="checkbox" type="checkbox" name="checkbox" />
-                                <label for="checkbox" class="text-surface1">Remember me</label>
+                                <input id="login-remember" type="checkbox" name="remember" />
+                                <label for="login-remember" class="text-surface1">Remember me</label>
                             </div>
                             <a class="text-primary hover:underline" href="#!">Forgot password?</a>
                         </div>
                         <div class="block-button mt-6">
-                            <button class="button-main bg-primary w-full text-center">Login</button>
+                            <button type="submit" class="button-main bg-primary w-full text-center">Login</button>
                         </div>
+                        <div id="login-message" class="mt-4 text-center"></div> <!-- Pour les messages d'erreur/succès -->
                         <div class="navigate flex items-center justify-center gap-2 mt-6">
                             <span class="text-surface1">Not registered yet?</span>
                             <a class="text-button hover:underline" href="register.html">Sign Up</a>
@@ -1613,6 +1584,16 @@
         <script src="./assets/js/slick.min.js"></script>
         <script src="./assets/js/leaflet.js"></script>
         <script src="./assets/js/swiper-bundle.min.js"></script>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <!-- Notre fichier d'initialisation Firebase -->
+        <script src="firebase-init.js"></script>
+        <!-- Notre fichier de logique d'authentification -->
+        <script src="./assets/js/auth.js"></script>
+
         <script src="./assets/js/main.js"></script>
     </body>
 </html>

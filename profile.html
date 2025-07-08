@@ -856,88 +856,52 @@
                     </ul>
                 </div>
                 <div class="list_action flex items-center gap-5">
-                    <div class="help_block max-sm:hidden">
-                        <a href="term-of-use.html" class="block">
-                            <span class="ph ph-question text-white text-2xl block"></span>
-                        </a>
-                    </div>
-                    <div class="notification_block relative max-sm:hidden">
-                        <button class="relative block">
-                            <span class="ph ph-bell text-white text-2xl block"></span>
-                            <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span>
-                        </button>
-                        <div class="notification_submenu absolute w-[400px] p-5 top-[3.25rem] -left-9 bg-white rounded-xl">
-                            <h6 class="heading6 pb-3">Notifications</h6>
-                            <ul class="list_notification w-full">
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">UI Designer</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">25 mins ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Internet Security</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">1 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Social Media Marketing</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">5 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification_item w-full py-3 border-t border-line duration-300 hover:bg-background">
-                                    <a href="#!" class="flex gap-3 w-full">
-                                        <span class="ic_noti flex flex-shrink-0 items-center justify-center w-8 h-8 rounded-full bg-surface">
-                                            <span class="ph-fill ph-bell text-lg text-secondary"></span>
-                                        </span>
-                                        <div class="notification_detail">
-                                            <p class="notification_desc text-secondary">The application is rejected on your job <span class="text-black">Social Media Marketing</span> by <span class="text-black">Employer</span>.</p>
-                                            <span class="notification_time caption2 text-placehover">12 hours ago</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
+                    <!-- Liens pour utilisateur non connecté -->
+                    <div id="auth-links-logged-out" class="flex items-center gap-5" style="display: none;">
+                        <div class="help_block max-sm:hidden">
+                            <a href="term-of-use.html" class="block">
+                                <span class="ph ph-question text-white text-2xl block"></span>
+                            </a>
                         </div>
+                        <a href="login.html" class="button-main bg-white text-black max-sm:hidden">Login</a>
+                        <a href="register.html" class="button-main bg-transparent text-white border border-white hover:bg-white hover:text-black max-sm:hidden">Sign Up</a>
                     </div>
-                    <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
-                    <div class="user_block relative max-sm:hidden">
+
+                    <!-- Liens pour utilisateur connecté (devrait être affiché par défaut ici car c'est une page de profil) -->
+                    <div id="auth-links-logged-in" class="user_block relative max-sm:hidden flex items-center gap-3">
+                        <div class="help_block max-sm:hidden">
+                            <a href="term-of-use.html" class="block">
+                                <span class="ph ph-question text-white text-2xl block"></span>
+                            </a>
+                        </div>
+                        <div class="notification_block relative max-sm:hidden">
+                            <button class="relative block">
+                                <span class="ph ph-bell text-white text-2xl block"></span>
+                                <span class="absolute -top-0.5 right-0.5 w-2 h-2 bg-primary rounded-full"></span> <!-- Afficher si notifications -->
+                            </button>
+                            <!-- Submenu de notifications ici si nécessaire -->
+                        </div>
+                        <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Become A Seller</a>
                         <button class="user_infor flex items-center gap-2 text-white">
-                            <img src="./assets/images/avatar/IMG-7.webp" alt="IMG-7" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
-                            <strong class="user_name text-title">Employer</strong>
+                            <img id="user-avatar-img" src="./assets/images/avatar/avatar1.png" alt="User Avatar" class="user_avatar flex-shrink-0 w-9 h-9 rounded-full" />
+                            <strong id="user-display-name" class="user_name text-title">User</strong>
                             <span class="ph ph-caret-down"></span>
                         </button>
-                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg">
+                        <ul class="list_action_user absolute w-[240px] p-3 top-14 right-0 bg-white rounded-lg shadow-md">
                             <li class="action_item">
-                                <a href="employers-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="candidates-dashboard.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-squares-four text-2xl text-secondary"></span>
                                     <strong class="text-title">Dashboard</strong>
                                 </a>
                             </li>
                             <li class="action_item">
-                                <a href="employers-profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="profile.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-user-circle text-2xl text-secondary"></span>
                                     <strong class="text-title">My Profile</strong>
                                 </a>
                             </li>
                             <li class="action_item">
-                                <a href="login.html" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background">
+                                <a href="#" id="logout-button" class="link flex items-center gap-3 w-full py-3 px-6 rounded-lg duration-300 hover:bg-background text-black">
                                     <span class="ph ph-sign-out text-2xl text-secondary"></span>
                                     <strong class="text-title">Log Out</strong>
                                 </a>
@@ -1087,8 +1051,9 @@
                     </button>
                     <div class="heading flex flex-wrap items-center justify-between gap-4">
                         <h4 class="heading4 max-lg:mt-3">Edit profile</h4>
-                        <button class="button-main" type="submit">Save & Publish</button>
+                        <button class="button-main" type="submit" id="profile-save-button">Save & Publish</button>
                     </div>
+                    <div id="profile-message" class="mt-4 text-center"></div> <!-- Pour les messages d'erreur/succès -->
                     <div class="cv_file p-8 mt-7.5 rounded-lg bg-white shadow-sm">
                         <h5 class="heading5">CV File</h5>
                         <ul class="list_file flex flex-wrap items-center gap-10 gap-y-5 mt-5">
@@ -1125,66 +1090,108 @@
                             <span class="caption1 text-secondary">Upload file PDF, Doc, Docx</span>
                         </div>
                     </div>
+                    <!-- Sections communes ou spécifiques au rôle seront gérées en JS pour l'affichage -->
                     <div class="infomation p-8 mt-7.5 rounded-lg bg-white shadow-sm">
-                        <h5 class="heading5">Infomation</h5>
+                        <h5 class="heading5">Information</h5>
                         <div class="grid sm:grid-cols-2 gap-5 mt-5">
                             <div class="upload_image col-span-full">
-                                <label for="uploadImage">Upload a new avatar: <span class="text-red">*</span></label>
+                                <label for="profile-avatar-upload">Avatar/Logo: <span class="text-red">*</span></label>
                                 <div class="flex flex-wrap items-center gap-5 mt-3">
                                     <div class="bg_img flex-shrink-0 relative w-[7.5rem] h-[7.5rem] rounded-md overflow-hidden border border-dashed border-line bg-surface">
                                         <span class="ph ph-image text-5xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary"></span>
-                                        <img src="#" alt="preview img" class="upload_img relative z-[1] w-full h-full object-cover hidden" />
+                                        <img src="./assets/images/avatar/avatar1.png" alt="preview img" id="profile-avatar-preview" class="upload_img relative z-[1] w-full h-full object-cover" />
                                     </div>
                                     <div>
                                         <strong class="text-button">Upload Avatar</strong>
-                                        <p class="caption1 text-secondary mt-1">JPG 320x240px</p>
+                                        <p class="caption1 text-secondary mt-1">JPG, PNG 320x240px</p>
                                         <div class="upload_file flex items-center gap-3 w-[220px] mt-3 px-3 py-2 border border-line rounded">
-                                            <label for="uploadImage" class="caption2 py-1 px-3 rounded bg-line whitespace-nowrap cursor-pointer">Choose File</label>
-                                            <input type="file" name="uploadImage" id="uploadImage" accept="image/*" class="caption2 cursor-pointer" required />
+                                            <label for="profile-avatar-upload" class="caption2 py-1 px-3 rounded bg-line whitespace-nowrap cursor-pointer">Choose File</label>
+                                            <input type="file" name="avatarUpload" id="profile-avatar-upload" accept="image/jpeg, image/png" class="caption2 cursor-pointer" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="full_name">
-                                <label for="fullName">Full Name: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg capitalize" id="fullName" type="text" placeholder="Full Name..." value="Candidates name" required />
+                                <label for="profile-full-name">Display Name / Contact Person*:</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg capitalize" id="profile-full-name" type="text" placeholder="Your Name or Company Contact" value="" required />
                             </div>
-                            <div class="birth">
-                                <label for="birth">Date of birth: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="birth" type="text" placeholder="Date of birth..." value="April 8, 1997" required />
+                            <div class="email_address"> <!-- Commun -->
+                                <label for="profile-email">Email address:</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg bg-surface" id="profile-email" type="email" placeholder="Email Address..." value="" readonly />
                             </div>
-                            <div class="phone_number">
-                                <label for="phoneNumber">Phone number: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="phoneNumber" type="text" placeholder="Phone Number..." value="+12-345-678-910" required />
+                             <div class="phone_number"> <!-- Commun -->
+                                <label for="profile-phone-number">Phone number:</label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile-phone-number" type="text" placeholder="Phone Number..." value="" />
                             </div>
-                            <div class="email_address">
-                                <label for="emailAddress">Email address: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="emailAddress" type="email" placeholder="Email Address..." value="hi.avitex@gmail.com" required />
-                            </div>
-                            <div class="gender">
-                                <label>Gender: <span class="text-red">*</span></label>
-                                <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
-                                    <div class="select">
-                                        <span class="selected capitalize" data-title="Male">Male</span>
-                                        <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
-                                            <li class="capitalize" data-item="Male">Male</li>
-                                            <li class="capitalize" data-item="Female">Female</li>
-                                            <li class="capitalize" data-item="Other">Other</li>
-                                        </ul>
+                            <div class="col-span-full" id="candidate-specific-info" style="display: none;">
+                                <div class="grid sm:grid-cols-2 gap-5">
+                                    <div class="birth">
+                                        <label for="profile-birth">Date of birth:</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile-birth" type="date" />
                                     </div>
-                                    <span class="icon_down ph ph-caret-down right-3"></span>
+                                    <div class="gender">
+                                        <label for="profile-gender">Gender:</label>
+                                        <select id="profile-gender" name="gender" class="form-control w-full mt-2 border border-line px-4 h-[50px] rounded-lg bg-white">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="age"> <!-- Peut être calculé ou laissé tel quel -->
+                                        <label for="age">Age:</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="age" type="text" placeholder="Age..." value="" />
+                                    </div>
+                                     <div class="salary">
+                                        <label for="profile-salary">Offered salary ($):</label>
+                                        <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="profile-salary" type="text" placeholder="Offered salary..." value="" />
+                                    </div>
+                                    <div class="salary_type">
+                                        <label for="profile-salary-type">Salary type:</label>
+                                        <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
+                                            <div class="select">
+                                                <span class="selected capitalize" data-title="Month">Month</span>
+                                                <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
+                                                    <li class="capitalize" data-item="Month">Month</li>
+                                                    <li class="capitalize" data-item="Week">Week</li>
+                                                    <li class="capitalize" data-item="Day">Day</li>
+                                                    <li class="capitalize" data-item="Hour">Hour</li>
+                                                </ul>
+                                            </div>
+                                            <span class="icon_down ph ph-caret-down right-3"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="age">
-                                <label for="age">Age: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="age" type="text" placeholder="Age..." value="24" required />
+
+                            <div class="col-span-full" id="employer-specific-info" style="display: none;">
+                                <div class="grid sm:grid-cols-2 gap-5">
+                                    <div class="form-group">
+                                        <label for="profile-company-name">Company Name*</label>
+                                        <input id="profile-company-name" type="text" name="companyname" class="form-control w-full mt-2 border border-line px-4 h-[50px] rounded-lg" placeholder="Your company name" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-industry">Industry</label>
+                                        <input id="profile-industry" type="text" name="industry" class="form-control w-full mt-2 border border-line px-4 h-[50px] rounded-lg" placeholder="e.g., Technology, Marketing" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-company-website">Company Website</label>
+                                        <input id="profile-company-website" type="url" name="website" class="form-control w-full mt-2 border border-line px-4 h-[50px] rounded-lg" placeholder="https://yourcompany.com" />
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="profile-company-location">Company Location</label>
+                                        <input id="profile-company-location" type="text" name="location" class="form-control w-full mt-2 border border-line px-4 h-[50px] rounded-lg" placeholder="e.g., New York, USA" />
+                                    </div>
+                                </div>
                             </div>
-                            <div class="salary">
-                                <label for="salary">Offered salary ($): <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="salary" type="text" placeholder="Offered salary..." value="2500" required />
+
+                            <!-- Champs communs comme la description/bio, localisation générale, et liens sociaux peuvent rester en dehors de ces divs spécifiques ou être dupliqués/gérés avec soin -->
+                            <div class="form-group col-span-full"> <!-- Localisation générale -->
+                                 <label for="profile-general-location">Location (City, Country)</label>
+                                 <input id="profile-general-location" type="text" name="generallocation" class="form-control w-full mt-2 border border-line px-4 h-[50px] rounded-lg" placeholder="e.g., Paris, France" />
                             </div>
-                            <div class="salary_type">
-                                <label>Salary type: <span class="text-red">*</span></label>
+                            <div class="experience_time col-span-full"> <!-- Plutôt pour candidat -->
+                                <label>Experience time: <span class="text-red">*</span></label>
                                 <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
                                     <div class="select">
                                         <span class="selected capitalize" data-title="Month">Month</span>
@@ -1240,9 +1247,9 @@
                                 </div>
                             </div>
                             <div class="desc col-span-full">
-                                <label>Decscription: <span class="text-red">*</span></label>
+                                <label for="profile-description-editor">Decscription:</label> <!-- Not strictly required for now -->
                                 <div class="form_editor mt-2">
-                                    <div id="editor"></div>
+                                    <div id="profile-description-editor"></div> <!-- Quill editor will target this ID -->
                                 </div>
                             </div>
                         </div>
@@ -2117,6 +2124,16 @@
         <script src="./assets/js/swiper-bundle.min.js"></script>
         <script src="./assets/js/apexcharts.js"></script>
         <script src="./assets/js/quill.js"></script>
+
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <!-- Notre fichier d'initialisation Firebase -->
+        <script src="firebase-init.js"></script>
+        <!-- Notre fichier de logique de profil -->
+        <script src="./assets/js/profile.js"></script>
+
         <script src="./assets/js/main.js"></script>
     </body>
 </html>

@@ -1080,48 +1080,49 @@
                 </div>
             </div>
             <div class="dashboard_service scrollbar_custom w-full bg-surface">
-                <form class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
+                <form id="add-service-form" class="container h-fit lg:pt-15 lg:pb-30 max-lg:py-12 max-sm:py-8">
                     <button class="btn_open_popup btn_menu_dashboard flex items-center gap-2 lg:hidden" data-type="menu_dashboard">
                         <span class="ph ph-squares-four text-xl"></span>
                         <strong class="text-button">Menu</strong>
                     </button>
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <h4 class="heading4 max-lg:mt-3">Add services</h4>
-                        <button class="button-main">Save & Publish</button>
+                        <button id="save-publish-button" type="submit" class="button-main">Save & Publish</button>
                     </div>
+                    <div id="service-message" class="mt-4"></div> <!-- Message area -->
                     <div class="infomation p-8 mt-7.5 rounded-lg bg-white">
                         <h5 class="heading5">Infomation</h5>
                         <div class="form grid sm:grid-cols-2 gap-5 mt-5">
                             <div class="upload_image col-span-full">
-                                <label for="uploadImage">Upload Preview: <span class="text-red">*</span></label>
+                                <label for="service-preview-image-input">Upload Preview: <span class="text-red">*</span></label>
                                 <div class="flex flex-wrap items-center gap-5 mt-3">
                                     <div class="bg_img flex-shrink-0 relative w-[10rem] h-[7.5rem] rounded-lg overflow-hidden border border-dashed border-line bg-surface">
                                         <span class="ph ph-image text-5xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary"></span>
-                                        <img src="#" alt="preview img" class="upload_img relative z-[1] w-full h-full object-cover hidden" />
+                                        <img src="#" alt="preview img" id="service-preview-image" class="upload_img relative z-[1] w-full h-full object-cover hidden" />
                                     </div>
                                     <div>
                                         <strong class="text-button">Upload a cover services:</strong>
-                                        <p class="caption1 text-secondary mt-1">JPG 320x240px</p>
+                                        <p class="caption1 text-secondary mt-1">JPG, PNG, GIF 320x240px</p>
                                         <div class="upload_file flex items-center gap-3 w-[220px] mt-3 px-3 py-2 border border-line rounded">
-                                            <label for="uploadImage" class="caption2 py-1 px-3 rounded bg-line whitespace-nowrap cursor-pointer">Choose File</label>
-                                            <input type="file" name="uploadImage" id="uploadImage" accept="image/*" class="caption2 cursor-pointer" required />
+                                            <label for="service-preview-image-input" class="caption2 py-1 px-3 rounded bg-line whitespace-nowrap cursor-pointer">Choose File</label>
+                                            <input type="file" name="uploadImage" id="service-preview-image-input" accept="image/*" class="caption2 cursor-pointer" required />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="title">
-                                <label for="title">Title: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="title" type="text" placeholder="Title..." required />
+                                <label for="service-title">Title: <span class="text-red">*</span></label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="service-title" type="text" placeholder="Enter service title..." required />
                             </div>
                             <div class="price">
-                                <label for="price">Price: <span class="text-red">*</span></label>
-                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="price" type="text" placeholder="Price..." />
+                                <label for="service-price">Price: <span class="text-red">*</span></label>
+                                <input class="w-full h-12 px-4 mt-2 border-line rounded-lg" id="service-price" type="number" placeholder="Enter price (e.g., 50)" required />
                             </div>
                             <div class="response_time">
-                                <label>Response time: <span class="text-red">*</span></label>
-                                <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
+                                <label for="service-response-time">Response time: <span class="text-red">*</span></label>
+                                <div id="service-response-time-select" class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
                                     <div class="select">
-                                        <span class="selected capitalize" data-title="3 Hours">3 Hours</span>
+                                        <span id="service-response-time-selected" class="selected capitalize" data-title="3 Hours">3 Hours</span>
                                         <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
                                             <li class="capitalize" data-item="1 Hour">1 Hour</li>
                                             <li class="capitalize" data-item="2 Hours">2 Hours</li>
@@ -1135,75 +1136,82 @@
                                 </div>
                             </div>
                             <div class="delivery_time">
-                                <label>Delivery time: <span class="text-red">*</span></label>
-                                <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
+                                <label for="service-delivery-time">Delivery time: <span class="text-red">*</span></label>
+                                <div id="service-delivery-time-select" class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
                                     <div class="select">
-                                        <span class="selected capitalize" data-title="12 Hours">12 Hours</span>
+                                        <span id="service-delivery-time-selected" class="selected capitalize" data-title="12 Hours">12 Hours</span>
                                         <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
                                             <li class="capitalize" data-item="12 Hours">12 Hours</li>
-                                            <li class="capitalize" data-item="24 Hours">24 Hours</li>
-                                            <li class="capitalize" data-item="36 Hours">36 Hours</li>
-                                            <li class="capitalize" data-item="48 Hours">48 Hours</li>
-                                            <li class="capitalize" data-item="60 Hours">60 Hours</li>
-                                            <li class="capitalize" data-item="72 Hours">72 Hours</li>
+                                            <li class="capitalize" data-item="1 Day">1 Day</li>
+                                            <li class="capitalize" data-item="2 Days">2 Days</li>
+                                            <li class="capitalize" data-item="3 Days">3 Days</li>
+                                            <li class="capitalize" data-item="5 Days">5 Days</li>
+                                            <li class="capitalize" data-item="7 Days">7 Days</li>
+                                            <li class="capitalize" data-item="14 Days">14 Days</li>
                                         </ul>
                                     </div>
                                     <span class="icon_down ph ph-caret-down right-3"></span>
                                 </div>
                             </div>
                             <div class="categories">
-                                <label>Categories: <span class="text-red">*</span></label>
+                                <label for="service-categories-input">Categories: <span class="text-red">*</span></label>
                                 <div class="category-selector relative flex flex-wrap items-center justify-between gap-y-2 w-full min-h-12 px-4 py-1 mt-2 border border-line rounded-lg">
-                                    <input class="categoryInput w-full min-h-8" type="text" placeholder="Type to search categories..." />
-                                    <div class="selectedCategories selected-categories w-fit flex-shrink-0"></div>
-                                    <ul class="categoryList category-list"></ul>
+                                    <input id="service-categories-input" class="categoryInput w-full min-h-8" type="text" placeholder="Type to search categories..." />
+                                    <div id="service-selected-categories" class="selectedCategories selected-categories w-fit flex-shrink-0"></div>
+                                    <ul id="service-category-list" class="categoryList category-list"></ul>
+                                    <!-- This component might need specific JS from main.js or custom handling -->
                                 </div>
                             </div>
                             <div class="tools">
-                                <label>Tools: <span class="text-red">*</span></label>
+                                <label for="service-tools-input">Tools: <span class="text-red">*</span></label>
                                 <div class="category-selector relative flex flex-wrap items-center justify-between gap-y-2 w-full min-h-12 px-4 py-1 mt-2 border border-line rounded-lg">
-                                    <input class="toolsInput w-full min-h-8" type="text" placeholder="Type to search tools..." />
-                                    <div class="selectedCategories selected-categories w-fit flex-shrink-0"></div>
-                                    <ul class="categoryList category-list"></ul>
+                                    <input id="service-tools-input" class="toolsInput w-full min-h-8" type="text" placeholder="Type to search tools..." />
+                                    <div id="service-selected-tools" class="selectedCategories selected-categories w-fit flex-shrink-0"></div>
+                                    <ul id="service-tools-list" class="categoryList category-list"></ul>
+                                    <!-- This component might need specific JS from main.js or custom handling -->
                                 </div>
                             </div>
                             <div class="language col-span-full">
-                                <label>Language: <span class="text-red">*</span></label>
+                                <label for="service-languages-input">Language: <span class="text-red">*</span></label>
                                 <div class="category-selector relative flex flex-wrap items-center justify-between gap-y-2 w-full min-h-12 px-4 py-1 mt-2 border border-line rounded-lg">
-                                    <input class="languageInput w-full min-h-8" type="text" placeholder="Type to search language..." />
-                                    <div class="selectedCategories selected-categories w-fit flex-shrink-0"></div>
-                                    <ul class="categoryList category-list"></ul>
+                                    <input id="service-languages-input" class="languageInput w-full min-h-8" type="text" placeholder="Type to search language..." />
+                                    <div id="service-selected-languages" class="selectedCategories selected-categories w-fit flex-shrink-0"></div>
+                                    <ul id="service-language-list" class="categoryList category-list"></ul>
+                                     <!-- This component might need specific JS from main.js or custom handling -->
                                 </div>
                             </div>
                             <div class="country">
-                                <label>Country: <span class="text-red">*</span></label>
-                                <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
+                                <label for="service-country">Country: <span class="text-red">*</span></label>
+                                <div id="service-country-select" class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
                                     <div class="select">
-                                        <span class="selected capitalize" data-title="United States">United States</span>
+                                        <span id="service-country-selected" class="selected capitalize" data-title="United States">United States</span>
                                         <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
                                             <li class="capitalize" data-item="United States">United States</li>
                                             <li class="capitalize" data-item="United Kingdom">United Kingdom</li>
+                                            <li class="capitalize" data-item="Canada">Canada</li>
+                                            <li class="capitalize" data-item="Australia">Australia</li>
                                             <li class="capitalize" data-item="Germany">Germany</li>
-                                            <li class="capitalize" data-item="Japan">Japan</li>
-                                            <li class="capitalize" data-item="South Korea">South Korea</li>
-                                            <li class="capitalize" data-item="China">China</li>
+                                            <li class="capitalize" data-item="France">France</li>
+                                            <li class="capitalize" data-item="India">India</li>
+                                            <li class="capitalize" data-item="Other">Other</li>
                                         </ul>
                                     </div>
                                     <span class="icon_down ph ph-caret-down right-3"></span>
                                 </div>
                             </div>
                             <div class="province">
-                                <label>Province/State: <span class="text-red">*</span></label>
-                                <div class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
+                                <label for="service-province">Province/State: <span class="text-red">*</span></label>
+                                <div id="service-province-select" class="select_block flex items-center w-full h-12 pr-10 pl-4 mt-2 border border-line rounded-lg">
                                     <div class="select">
-                                        <span class="selected capitalize" data-title="New York">New York</span>
+                                        <span id="service-province-selected" class="selected capitalize" data-title="New York">New York</span>
                                         <ul class="list_option scrollbar_custom w-full max-h-[200px] bg-white">
                                             <li class="capitalize" data-item="New York">New York</li>
+                                            <li class="capitalize" data-item="California">California</li>
                                             <li class="capitalize" data-item="London">London</li>
                                             <li class="capitalize" data-item="Berlin">Berlin</li>
                                             <li class="capitalize" data-item="Tokyo">Tokyo</li>
-                                            <li class="capitalize" data-item="Seoul">Seoul</li>
-                                            <li class="capitalize" data-item="Beijing">Beijing</li>
+                                            <li class="capitalize" data-item="Ontario">Ontario</li>
+                                            <li class="capitalize" data-item="Other">Other</li>
                                         </ul>
                                     </div>
                                     <span class="icon_down ph ph-caret-down right-3"></span>
@@ -1212,19 +1220,19 @@
                             <div class="desc col-span-full">
                                 <label>Decscription: <span class="text-red">*</span></label>
                                 <div class="form_editor mt-2">
-                                    <div id="editor"></div>
+                                    <div id="service-description-editor"></div> <!-- Quill editor container -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="upload_portfolio p-8 mt-7.5 rounded-lg bg-white">
-                        <h5 class="heading5">Upload Portfolio</h5>
+                        <h5 class="heading5">Upload Portfolio Images (Optional)</h5>
                         <div class="multiple-image-section mt-5">
-                            <div class="image-previews flex flex-wrap gap-5">
-                                <label for="multipleImages" class="flex flex-col items-center justify-center gap-2 sm:w-[248px] w-[116px] sm:h-[186px] h-[102px] rounded-lg bg-surface cursor-pointer">
+                            <div id="service-portfolio-previews" class="image-previews flex flex-wrap gap-5">
+                                <label for="service-portfolio-images-input" class="flex flex-col items-center justify-center gap-2 sm:w-[248px] w-[116px] sm:h-[186px] h-[102px] rounded-lg bg-surface cursor-pointer">
                                     <span class="ph ph-image sm:text-5xl text-3xl text-secondary"></span>
-                                    <span class="text-button text-secondary text-center">Upload file</span>
-                                    <input type="file" id="multipleImages" name="files[]" accept="image/*" hidden multiple />
+                                    <span class="text-button text-secondary text-center">Upload files</span>
+                                    <input type="file" id="service-portfolio-images-input" name="files[]" accept="image/*" hidden multiple />
                                 </label>
                             </div>
                         </div>
@@ -2000,5 +2008,17 @@
         <script src="./assets/js/apexcharts.js"></script>
         <script src="./assets/js/quill.js"></script>
         <script src="./assets/js/main.js"></script>
+
+        <!-- Firebase SDKs -->
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+        <!-- Firebase Init -->
+        <script src="./firebase-init.js"></script>
+
+        <!-- Page Specific Script -->
+        <script src="./assets/js/candidate-add-service.js"></script>
     </body>
 </html>
