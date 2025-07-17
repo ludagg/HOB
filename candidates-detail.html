@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="FreelanHub - Plateforme de recrutement et freelancing" />
+        <title>FreelanHub - Profil Candidat</title>
+        <link rel="shortcut icon" href="./assets/images/fav.png" type="image/x-icon" />
+        <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="./assets/css/leaflet.css" />
+        <link rel="stylesheet" href="./assets/css/slick.css" />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+        <link rel="stylesheet" href="./dist/output-tailwind.css" />
+        <link rel="stylesheet" href="./dist/output-scss.css" />
+        <style>
+            .skill-tag {
+                display: inline-block;
+                background-color: #f3f4f6;
+                padding: 4px 12px;
+                border-radius: 20px;
+                margin-right: 8px;
+                margin-bottom: 8px;
+                font-size: 14px;
+                color: #374151;
+            }
+            .loading-spinner {
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .empty-state {
+                color: #6b7280;
+                font-style: italic;
+            }
+        </style>
+    </head>
+
+    <body class="lg:overflow-unset">
+        <!-- Header -->
+        <header id="header" class="header -style-white relative">
+            <div class="header_inner absolute flex items-center justify-between top-0 left-0 right-0 z-[1] w-full sm:h-20 h-16 min-[1600px]:px-15 lg:px-9 px-4 border-b border-light">
+                <div class="left flex items-center gap-15 h-full max-[1600px]:gap-6">
+                    <h1>
+                        <a href="index.html">
+                            <img src="./assets/images/logo-white.png" alt="logo-white" class="logo-white md:h-[42px] h-8 w-auto" />
+                            <img src="./assets/images/logo.png" alt="logo" class="logo-black md:h-[42px] h-8 w-auto hidden" />
+                        </a>
+                    </h1>
+                </div>
+                <div class="list_action flex items-center gap-5">
+                    <a href="login.html" class="button-main bg-white text-black max-sm:hidden">Connexion</a>
+                    <button class="humburger_btn min-[1400px]:hidden">
+                        <span class="ph-bold ph-list text-white text-2xl block"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- En-tête du profil -->
+        <section class="breadcrumb candidates_breadcrumb is_top_rate bg-surface sm:pt-35 pt-30 pb-15">
+            <div class="container flex max-lg:flex-col lg:items-center justify-between gap-7 gap-y-5">
+                <div class="candidates_info flex flex-wrap sm:gap-7 gap-4 w-full">
+                    <div class="overflow-hidden flex-shrink-0 sm:w-[100px] w-24 sm:h-[100px] h-24 rounded-full">
+                        <img id="user-avatar" src="./assets/images/avatar/IMG-1.webp" alt="Photo de profil" class="candidates_avatar w-full h-full object-cover" />
+                    </div>
+                    <div class="flex flex-col gap-1 lg:w-[760px]">
+                        <span id="availability-tag" class="tag w-fit caption1 bg-background text-success hidden">Disponible</span>
+                        <h4 id="user-name" class="candidates_name heading4 w-fit mt-1">Chargement...</h4>
+                        <div class="flex flex-wrap items-center gap-5 gap-y-1.5 mt-1">
+                            <span class="flex items-center text-secondary">
+                                <span class="ph ph-map-pin text-lg"></span>
+                                <span id="user-location" class="candidates_address -style-1 pl-1">Localisation inconnue</span>
+                            </span>
+                            <div id="user-rating" class="candidates_review flex items-center gap-1 hidden">
+                                <span class="ph-fill ph-star text-lg text-yellow"></span>
+                                <strong class="text-button">0.0</strong>
+                                <span class="review text-secondary">(0 avis)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="breadcrumb_action flex flex-col max-lg:flex-col-reverse gap-4">
+                    <button id="contact-btn" class="button-main w-fit whitespace-nowrap">Contacter</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenu principal -->
+        <section class="candidates_detail lg:py-20 sm:py-14 py-10">
+            <div class="container flex max-lg:flex-col gap-y-10">
+                <div class="candidates_content w-full overflow-hidden lg:pr-15">
+                    <!-- Section À propos -->
+                    <div class="description">
+                        <h5 class="heading5">À propos</h5>
+                        <div class="flex flex-col gap-3 mt-3">
+                            <p id="user-bio" class="body2 text-secondary">
+                                <span class="loading-spinner ph ph-spinner"></span> Chargement...
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Section Compétences -->
+                    <div class="skills md:mt-10 mt-7">
+                        <h6 class="heading6">Compétences</h6>
+                        <div id="user-skills" class="mt-4 p-4 border border-line rounded-lg">
+                            <p class="empty-state">Aucune compétence renseignée</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="candidates_sidebar lg:sticky lg:top-24 flex-shrink-0 lg:w-[380px] w-full h-fit">
+                    <div class="about overflow-hidden p-6 rounded-xl bg-white shadow-md duration-300">
+                        <h5 class="heading5">Informations</h5>
+                        <ul class="candidates_info py-1">
+                            <li class="industry flex items-center justify-between w-full py-4 border-b border-line">
+                                <span class="text-secondary">Profession:</span>
+                                <strong id="user-profession" class="text-title">Non spécifié</strong>
+                            </li>
+                            <li class="location flex items-center justify-between w-full py-4 border-b border-line">
+                                <span class="text-secondary">Localisation:</span>
+                                <strong id="user-full-location" class="text-title">Non spécifié</strong>
+                            </li>
+                            <li id="hourly-rate-item" class="salary flex items-center justify-between w-full py-4 border-b border-line hidden">
+                                <span class="text-secondary">Taux horaire:</span>
+                                <strong id="user-hourly-rate" class="text-title">0 €/h</strong>
+                            </li>
+                            <li class="language flex items-center justify-between w-full py-4 border-b border-line">
+                                <span class="text-secondary">Disponibilité:</span>
+                                <strong id="user-availability" class="text-title">Non spécifié</strong>
+                            </li>
+                            <li class="list_social flex flex-wrap items-center justify-between gap-4 w-full py-4">
+                                <span class="text-secondary">Contact:</span>
+                                <ul class="list flex flex-wrap items-center gap-3">
+                                    <li>
+                                        <a id="user-email" href="#" class="w-10 h-10 flex items-center justify-center border border-line rounded-full text-black duration-300 hover:bg-primary">
+                                            <span class="ph ph-envelope text-lg"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="user-phone" href="#" class="w-10 h-10 flex items-center justify-center border border-line rounded-full text-black duration-300 hover:bg-primary">
+                                            <span class="ph ph-phone text-lg"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <!-- Bouton de retour en haut -->
+    <button class="scroll-to-top-btn"><span class="ph-bold ph-caret-up"></span></button>
+
+    <!-- Menu mobile -->
+    <div class="menu_mobile hidden">
+        <button class="menu_mobile_close flex items-center justify-center absolute top-5 left-5 w-8 h-8 rounded-full bg-surface">
+            <span class="ph-bold ph-x"></span>
+        </button>
+        <div class="heading flex items-center justify-center mt-5">
+            <a href="index.html" class="logo">
+                <img src="./assets/images/logo.png" alt="FreelanHub" class="h-8" />
+            </a>
+        </div>
+        <div class="mt-4">
+            <ul class="nav_mobile">
+                <li class="nav_item py-2">
+                    <a href="index.html" class="text-xl font-semibold">Accueil</a>
+                </li>
+                <li class="nav_item py-2">
+                    <a href="#!" class="text-xl font-semibold flex items-center justify-between toggle-submenu">
+                        Candidats
+                        <span class="text-right">
+                            <i class="ph ph-caret-right text-xl"></i>
+                        </span>
+                    </a>
+                    <div class="sub_nav_mobile hidden">
+                        <button class="back_btn flex items-center gap-3">
+                            <i class="ph ph-caret-left text-xl"></i>
+                            Retour
+                        </button>
+                        <div class="list-nav-item w-full pt-2 pb-6">
+                            <ul>
+                                <li class="nav_item">
+                                    <a href="jobs-default.html" class="block py-2">Offres d'emploi</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="project-default.html" class="block py-2">Projets disponibles</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="employers-default.html" class="block py-2">Employeurs</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="become-seller.html" class="block py-2">Devenir vendeur</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="candidates-dashboard.html" class="block py-2">Tableau de bord</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav_item py-2">
+                    <a href="#!" class="text-xl font-semibold flex items-center justify-between toggle-submenu">
+                        Employeurs
+                        <span class="text-right">
+                            <i class="ph ph-caret-right text-xl"></i>
+                        </span>
+                    </a>
+                    <div class="sub_nav_mobile hidden">
+                        <button class="back_btn flex items-center gap-3">
+                            <i class="ph ph-caret-left text-xl"></i>
+                            Retour
+                        </button>
+                        <div class="list-nav-item w-full pt-2 pb-6">
+                            <ul>
+                                <li class="nav_item">
+                                    <a href="services-default.html" class="block py-2">Services</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="candidates-default.html" class="block py-2">Candidats</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="become-buyer.html" class="block py-2">Devenir acheteur</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="employers-dashboard.html" class="block py-2">Tableau de bord</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav_item py-2">
+                    <a href="#!" class="text-xl font-semibold flex items-center justify-between toggle-submenu">
+                        Autres pages
+                        <span class="text-right">
+                            <i class="ph ph-caret-right text-xl"></i>
+                        </span>
+                    </a>
+                    <div class="sub_nav_mobile hidden">
+                        <button class="back_btn flex items-center gap-3">
+                            <i class="ph ph-caret-left text-xl"></i>
+                            Retour
+                        </button>
+                        <div class="list-nav-item w-full pt-2 pb-6">
+                            <ul>
+                                <li class="nav_item">
+                                    <a href="about.html" class="block py-2">À propos</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="pricing.html" class="block py-2">Tarifs</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="contact.html" class="block py-2">Contact</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="faqs.html" class="block py-2">FAQ</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="term-of-use.html" class="block py-2">Conditions</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="login.html" class="block py-2">Connexion</a>
+                                </li>
+                                <li class="nav_item">
+                                    <a href="register.html" class="block py-2">Inscription</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+        <script>    // Gestion du menu mobile
+    const humburgerBtn = document.querySelector('.humburger_btn');
+    const menuMobile = document.querySelector('.menu_mobile');
+    const menuMobileClose = document.querySelector('.menu_mobile_close');
+    
+    humburgerBtn.addEventListener('click', function() {
+        menuMobile.classList.remove('hidden');
+    });
+    
+    menuMobileClose.addEventListener('click', function() {
+        menuMobile.classList.add('hidden');
+    });
+    
+    // Gestion des sous-menus mobiles
+    const toggleSubmenus = document.querySelectorAll('.toggle-submenu');
+    
+    toggleSubmenus.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const submenu = this.nextElementSibling;
+            submenu.classList.toggle('hidden');
+        });
+    });
+    
+    const backBtns = document.querySelectorAll('.back_btn');
+    
+    backBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.parentElement.classList.add('hidden');
+        });
+    });
+
+  </script>
+        <!-- Scripts -->
+        <script src="./assets/js/jquery.min.js"></script>
+        <script src="./assets/js/phosphor-icons.js"></script>
+        <script src="./assets/js/slick.min.js"></script>
+        <script src="./assets/js/leaflet.js"></script>
+        <script src="./assets/js/swiper-bundle.min.js"></script>
+        <script src="./assets/js/main.js"></script>
+        
+        <!-- Firebase SDK -->
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script>
+// Configuration Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyAmr9Nar3YdKuphgu-HW-qYeShhTk07C2c",
+    authDomain: "hob-app-3530d.firebaseapp.com",
+    projectId: "hob-app-3530d",
+    storageBucket: "hob-app-3530d.appspot.com",
+    messagingSenderId: "207981400350",
+    appId: "1:207981400350:web:15badcca0bb9808f96790f"
+};
+
+// Initialisation Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Fonction pour formater la localisation
+function formatLocation(city, country) {
+    const parts = [];
+    if (city) parts.push(city);
+    if (country) parts.push(country);
+    return parts.join(', ') || "Non spécifié";
+}
+
+// Fonction pour charger les données du candidat
+async function loadCandidateData(userId) {
+    try {
+        // Afficher l'état de chargement
+        showLoadingState();
+
+        // Récupérer les données utilisateur (la bio est maintenant dans le même document)
+        const userDoc = await db.collection('users').doc(userId).get();
+
+        if (!userDoc.exists) {
+            throw new Error("Utilisateur non trouvé");
+        }
+
+        const userData = userDoc.data();
+        
+        // Mettre à jour l'interface
+        updateUI(userData);
+
+    } catch (error) {
+        console.error("Erreur lors du chargement:", error);
+        showErrorState();
+    }
+}
+
+// Afficher l'état de chargement
+function showLoadingState() {
+    document.getElementById('user-name').innerHTML = '<span class="loading-spinner ph ph-spinner"></span> Chargement...';
+    document.getElementById('user-bio').innerHTML = '<span class="loading-spinner ph ph-spinner"></span> Chargement...';
+}
+
+// Afficher l'état d'erreur
+function showErrorState() {
+    document.getElementById('user-name').textContent = "Erreur de chargement";
+    document.getElementById('user-bio').textContent = "Nous n'avons pas pu charger les données du profil.";
+}
+
+// Mettre à jour l'interface utilisateur
+function updateUI(userData) {
+    // Informations de base
+    document.getElementById('user-name').textContent = 
+        `${userData.firstName || ''} ${userData.lastName || ''}`.trim() || 'Anonyme';
+    
+    document.getElementById('user-profession').textContent = 
+        userData.profession || "Non spécifié";
+
+    // Localisation
+    const locationText = formatLocation(userData.city, userData.country);
+    document.getElementById('user-location').textContent = locationText;
+    document.getElementById('user-full-location').textContent = locationText;
+
+    // Bio (maintenant directement dans userData)
+    document.getElementById('user-bio').textContent = 
+        userData.bio || "Aucune description fournie";
+
+    // Compétences
+    const skillsContainer = document.getElementById('user-skills');
+    if (userData.skills?.length > 0) {
+        skillsContainer.innerHTML = userData.skills
+            .map(skill => `<span class="skill-tag">${skill}</span>`)
+            .join('');
+    } else {
+        skillsContainer.innerHTML = '<p class="empty-state">Aucune compétence renseignée</p>';
+    }
+
+    // Taux horaire (pour les candidats)
+    if (userData.userType === 'candidate' && userData.hourlyRate) {
+        document.getElementById('hourly-rate-item').classList.remove('hidden');
+        document.getElementById('user-hourly-rate').textContent = 
+            `${userData.hourlyRate} €/h`;
+    }
+
+    // Disponibilité
+    if (userData.userType === 'candidate') {
+        const isAvailable = userData.available !== false;
+        document.getElementById('user-availability').textContent = 
+            isAvailable ? "Disponible" : "Non disponible";
+        
+        if (isAvailable) {
+            document.getElementById('availability-tag').classList.remove('hidden');
+        }
+    }
+
+    // Note
+    if (userData.rating >= 0 && userData.reviews >= 0) {
+        document.getElementById('user-rating').classList.remove('hidden');
+        document.querySelector('#user-rating strong').textContent = 
+            userData.rating?.toFixed(1) || '0.0';
+        document.querySelector('#user-rating .review').textContent = 
+            `(${userData.reviews || 0} avis)`;
+    }
+
+    // Contact
+    if (userData.email) {
+        const emailLink = document.getElementById('user-email');
+        emailLink.href = `mailto:${userData.email}`;
+        emailLink.title = userData.email;
+    }
+    
+    if (userData.phone) {
+        const phoneLink = document.getElementById('user-phone');
+        phoneLink.href = `tel:${userData.phone}`;
+        phoneLink.title = userData.phone;
+    }
+
+    // Photo de profil
+    if (userData.photoURL) {
+        document.getElementById('user-avatar').src = userData.photoURL;
+    }
+}
+
+// Au chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer l'ID utilisateur depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+    
+    if (userId) {
+        loadCandidateData(userId);
+    } else {
+        showErrorState();
+        document.getElementById('user-name').textContent = "Profil non trouvé";
+    }
+
+    // Gestion du bouton de contact
+    document.getElementById('contact-btn').addEventListener('click', function() {
+        // Récupérer l'email si disponible
+        const email = document.getElementById('user-email').title;
+        if (email) {
+            window.location.href = `mailto:${email}?subject=Contact via FreelanHub`;
+        } else {
+            alert("Les informations de contact ne sont pas disponibles");
+        }
+    });
+});
+</script>
+    </body>
+</html>
