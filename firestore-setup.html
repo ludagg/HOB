@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration de Firestore</title>
+    <link rel="stylesheet" href="./dist/output-tailwind.css" />
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="text-center">
+        <h1 class="text-3xl font-bold mb-4">Configuration de Firestore</h1>
+        <p class="mb-6">Cliquez sur le bouton ci-dessous pour peupler la base de données Firestore avec les catégories et sous-catégories.</p>
+        <button id="seed-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Lancer la configuration
+        </button>
+        <div id="status" class="mt-4 text-lg"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="./assets/js/firebase-config.js"></script>
+    <script src="./assets/js/firestore-seed.js"></script>
+    <script src="./assets/js/firestore-setup.js"></script>
+</body>
+</html>
