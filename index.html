@@ -30,92 +30,8 @@
                     </h1>
                     
                 </div>
-                <div class="navigator h-full max-[1400px]:hidden">
-                    <ul class="list flex items-center gap-5 h-full">
-                        <li class="h-full">
-                            <a href="index.html" class="flex items-center gap-1 h-full text-white duration-300">
-                                <span class="text-title relative">Accueil</span>
-                            </a>
-                        </li>
-                        <li class="h-full relative group">
-                            <a href="#!" class="flex items-center gap-1 h-full text-white duration-300">
-                                <span class="text-title relative">Candidats</span>
-                                <span class="ph-bold ph-caret-down"></span>
-                            </a>
-                            <div class="sub_menu absolute hidden group-hover:block p-3 -left-10 w-max bg-white rounded-lg">
-                                <ul>
-                                    <li>
-                                        <a href="jobs-default.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Offres d'emploi</a>
-                                    </li>
-                                    <li>
-                                        <a href="project-default.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Projets disponibles</a>
-                                    </li>
-                                    <li>
-                                        <a href="employers-default.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Employeurs</a>
-                                    </li>
-                                    <li>
-                                        <a href="become-seller.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Devenir vendeur</a>
-                                    </li>
-                                    <li>
-                                        <a href="candidates-dashboard.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Tableau de bord</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="h-full relative group">
-                            <a href="#!" class="flex items-center gap-1 h-full text-white duration-300">
-                                <span class="text-title relative">Employeurs</span>
-                                <span class="ph-bold ph-caret-down"></span>
-                            </a>
-                            <div class="sub_menu absolute hidden group-hover:block p-3 -left-10 w-max bg-white rounded-lg">
-                                <ul>
-                                    <li>
-                                        <a href="services-default.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Services</a>
-                                    </li>
-                                    <li>
-                                        <a href="candidates-default.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Candidats</a>
-                                    </li>
-                                    <li>
-                                        <a href="become-buyer.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Devenir acheteur</a>
-                                    </li>
-                                    <li>
-                                        <a href="employers-dashboard.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Tableau de bord</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="h-full relative group">
-                            <a href="#!" class="flex items-center gap-1 h-full text-white duration-300 active">
-                                <span class="text-title relative">Autres pages</span>
-                                <span class="ph-bold ph-caret-down"></span>
-                            </a>
-                            <div class="sub_menu absolute hidden group-hover:block p-3 -left-10 w-max bg-white rounded-lg">
-                                <ul>
-                                    <li>
-                                        <a href="about.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">À propos</a>
-                                    </li>
-                                    <li>
-                                        <a href="pricing.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Tarifs</a>
-                                    </li>
-                                    <li>
-                                        <a href="contact.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Contact</a>
-                                    </li>
-                                    <li>
-                                        <a href="faqs.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">FAQ</a>
-                                    </li>
-                                    <li>
-                                        <a href="term-of-use.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Conditions</a>
-                                    </li>
-                                    <li>
-                                        <a href="login.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100 active">Connexion</a>
-                                    </li>
-                                    <li>
-                                        <a href="register.html" class="link block text-button py-[11px] px-6 rounded duration-300 hover:bg-gray-100">Inscription</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
+                <div id="dynamic-menu" class="navigator h-full max-[1400px]:hidden">
+                    <!-- Dynamic menu will be loaded here -->
                 </div>
                 <div class="list_action flex items-center gap-5">
                     <a href="become-seller.html" class="button-main bg-white text-black max-sm:hidden">Devenir vendeur</a>
@@ -1482,6 +1398,11 @@
         <script src="./assets/js/leaflet.js"></script>
         <script src="./assets/js/swiper-bundle.min.js"></script>
         <script src="./assets/js/main.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+        <script src="./assets/js/firebase-config.js"></script>
+        <script src="./assets/js/auth.js"></script>
         <script src="./assets/js/index.js"></script>
     </body>
 </html>
