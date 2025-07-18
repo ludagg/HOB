@@ -1,12 +1,38 @@
 
-// Définir la persistance de session
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    .then(() => {
-        console.log("Persistance d'authentification configurée");
-    })
-    .catch((error) => {
-        console.error("Erreur de persistance:", error);
-    });
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Fonction pour récupérer la configuration Firebase
+async function getFirebaseConfig() {
+    const response = await fetch('/firebase-config');
+    return await response.json();
+}
+
+let app, auth, db;
+
+// Initialiser Firebase
+getFirebaseConfig().then(firebaseConfig => {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+
+    // Définir la persistance de session
+    setPersistence(auth, browserLocalPersistence)
+        .then(() => {
+            console.log("Persistance d'authentification configurée");
+            // Vérifier l'état d'authentification après avoir configuré la persistance
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    redirectUser(user);
+                }
+            });
+        })
+        .catch((error) => {
+            console.error("Erreur de persistance:", error);
+        });
+});
+
 
 // Fonction pour afficher les messages
 function showAlert(message, type = 'info') {
@@ -40,56 +66,56 @@ function getFirebaseErrorMessage(errorCode) {
 }
 
 // Fonction pour rediriger vers le bon tableau de bord
-function redirectUser(user) {
-    db.collection('users').doc(user.uid).get()
-        .then((doc) => {
-            if (doc.exists) {
-                const userData = doc.data();
-                const dashboardUrl = userData.userType === 'candidate'
-                    ? 'candidates-dashboard.html'
-                    : 'employers-dashboard.html';
+async function redirectUser(user) {
+    const userDocRef = doc(db, "users", user.uid);
+    try {
+        const docSnap = await getDoc(userDocRef);
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+            const dashboardUrl = userData.role === 'candidate'
+                ? 'candidates-dashboard.html'
+                : 'employers-dashboard.html';
 
-                showAlert(`Connexion réussie. Redirection vers votre tableau de bord...`, 'success');
-                setTimeout(() => {
-                    window.location.href = dashboardUrl;
-                }, 2000);
-            } else {
-                showAlert('Profil utilisateur introuvable', 'error');
-                auth.signOut();
-            }
-        })
-        .catch((error) => {
-            console.error("Erreur lors de la récupération des données:", error);
-            showAlert('Erreur lors de la récupération de votre profil', 'error');
-        });
+            showAlert(`Connexion réussie. Redirection vers votre tableau de bord...`, 'success');
+            setTimeout(() => {
+                window.location.href = dashboardUrl;
+            }, 2000);
+        } else {
+            showAlert('Profil utilisateur introuvable', 'error');
+            auth.signOut();
+        }
+    } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+        showAlert('Erreur lors de la récupération de votre profil', 'error');
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifier l'état d'authentification au chargement
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            redirectUser(user);
-        }
-    });
+document.addEventListener('DOMContentLoaded', function () {
+    // La vérification de l'état d'authentification est maintenant dans le .then() de setPersistence
 
     // Gestion du menu mobile
     const humburgerBtn = document.querySelector('.humburger_btn');
     const menuMobile = document.querySelector('.menu_mobile');
     const menuMobileClose = document.querySelector('.menu_mobile_close');
 
-    humburgerBtn.addEventListener('click', function() {
-        menuMobile.classList.remove('hidden');
-    });
+    if (humburgerBtn) {
+        humburgerBtn.addEventListener('click', function () {
+            menuMobile.classList.remove('hidden');
+        });
+    }
 
-    menuMobileClose.addEventListener('click', function() {
-        menuMobile.classList.add('hidden');
-    });
+    if (menuMobileClose) {
+        menuMobileClose.addEventListener('click', function () {
+            menuMobile.classList.add('hidden');
+        });
+    }
+
 
     // Gestion des sous-menus mobiles
     const toggleSubmenus = document.querySelectorAll('.toggle-submenu');
 
     toggleSubmenus.forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             e.preventDefault();
             const submenu = this.nextElementSibling;
             submenu.classList.toggle('hidden');
@@ -99,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const backBtns = document.querySelectorAll('.back_btn');
 
     backBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             this.parentElement.classList.add('hidden');
         });
     });
@@ -107,39 +133,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gestion du formulaire de connexion
     const loginForm = document.querySelector('.form');
 
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
 
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-        if (!email || !password) {
-            showAlert('Veuillez remplir tous les champs requis.', 'error');
-            return;
-        }
+            if (!email || !password) {
+                showAlert('Veuillez remplir tous les champs requis.', 'error');
+                return;
+            }
 
-        // Afficher un indicateur de chargement
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="ph ph-spinner"></span> Connexion en cours...';
+            // Afficher un indicateur de chargement
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="ph ph-spinner"></span> Connexion en cours...';
 
-        // Effacer les messages précédents
-        document.getElementById('alert-message').innerHTML = '';
+            // Effacer les messages précédents
+            document.getElementById('alert-message').innerHTML = '';
 
-        // Connexion avec Firebase
-        auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                redirectUser(userCredential.user);
-            })
-            .catch((error) => {
-                // Gestion des erreurs
-                const errorMessage = getFirebaseErrorMessage(error.code);
-                showAlert(errorMessage, 'error');
+            // Connexion avec Firebase
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    redirectUser(userCredential.user);
+                })
+                .catch((error) => {
+                    // Gestion des erreurs
+                    const errorMessage = getFirebaseErrorMessage(error.code);
+                    showAlert(errorMessage, 'error');
 
-                // Réactiver le bouton
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            });
-    });
+                    // Réactiver le bouton
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                });
+        });
+    }
 });
